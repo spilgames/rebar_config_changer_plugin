@@ -1,13 +1,5 @@
 %%% @doc Prepares application for a 'piqi defs' compile run.
 %%%
-%%% Should only be used for applications which bundle piqi defs.
-%%%
-%%% If plugin is included in 'CURRENT' application, plugin:
-%%%
-%%% 1. replaces erl_opts with defs_erl_opts
-%%% 2. replaces pre_hooks with defs_pre_hooks
-%%% 3. replaces deps with defs_deps
-%%%
 %%% After the get-deps/compile run the config is put back.
 -module(rebar_config_changer_plugin).
 
