@@ -1,0 +1,11 @@
+{application, rebar_config_changer_plugin,
+ [
+  {description, "Rebar on-line config changer"},
+  {vsn, git},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {env, []}
+ ]}.
