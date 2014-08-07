@@ -67,7 +67,7 @@ dependencies too early for them to be processed on time by the plugin.
 Therefore the "definition's" project's dependencies have to be set in
 ``rebar.config.script``.
 
----
+----------------
 
 ``rebar_app_utils:is_app_dir/1`` does not support ``{src_dirs, ...}`` option
 when scanning for dependencies at early stages. If "src" exists,
@@ -76,7 +76,8 @@ If for example you'd want to exclude the "src" directory in a definition's
 project you'll have to add a ``your_app.app.src.script`` file to only include
 the kernel and stdlib applications as well as empty the mod option.
 
-``your_app.app.src.script`` example:
+``your_app.app.src.script`` example::
+
 
     DefsApps = {applications, [kernel, stdlib]},
     [{application, App, Props}] = CONFIG,
