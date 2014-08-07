@@ -11,7 +11,7 @@ This plugin helps to change ``rebar.config`` during compile run-time.
 Use case
 --------
 
-An immediate use case for the plugin: let's assume git repository holds a 
+An immediate use case for the plugin: let's assume git repository holds a
 a service which consists of two parts:
 
 1. Service implementation (erlang_).
@@ -59,13 +59,30 @@ the parent::
     {plugins, [rebar_config_changer_plugin]}.
 
 
-``deps`` caveats
+Rebar caveats
 ----------------
 
 Changing ``deps`` during runtime does not help with the plugin. Rebar reads
 dependencies too early for them to be processed on time by the plugin.
 Therefore the "definition's" project's dependencies have to be set in
 ``rebar.config.script``.
+
+---
+
+``rebar_app_utils:is_app_dir/1`` does not support ``{src_dirs, ...}`` option
+when scanning for dependencies at early stages. If "src" exists,
+it always takes precedence, even if ``rebar.config.script`` says otherwise.
+If for example you'd want to exclude the "src" directory in a definition's
+project you'll have to add a ``your_app.app.src.script`` file to only include
+the kernel and stdlib applications as well as empty the mod option.
+
+``your_app.app.src.script`` example:
+
+    DefsApps = {applications, [kernel, stdlib]},
+    [{application, App, Props}] = CONFIG,
+    Props2 = lists:keyreplace(applications, 1, Props, DefsApps),
+    Props3 = lists:keydelete(mod, 1, Props2),
+    [{application, App, Props3}]
 
 .. _piqi: http://piqi.org/
 .. _proto: https://developers.google.com/protocol-buffers/
